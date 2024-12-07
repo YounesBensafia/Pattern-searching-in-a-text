@@ -18,8 +18,9 @@ def track_memory(func, *args, **kwargs):
     peak_memory_kb = peak / 1024
     return peak_memory_kb
 
-def our_function(n):
-    a = [i for i in range(n)]
-    time.sleep(5)
+#-------JUST TO TEST-------
+# def our_function(n):
+#     a = [i for i in range(n)]
+#     time.sleep(5)
 
-memory_used = track_memory(our_function, 15)
+# memory_used = track_memory(our_function, 15)
