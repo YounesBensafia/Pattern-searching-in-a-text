@@ -14,10 +14,10 @@ def search_pattern_with_suffix_array(text, pattern):
     suffix_array = suffix_array_construction(text)
     
     m = len(pattern)
-    indices = set()
+    indices = list()
     for index in suffix_array:
         if text[index:index + m] == pattern:
-            indices.add(index)
+            indices.append(index)
     return indices
 
 text = "abracadabra"
