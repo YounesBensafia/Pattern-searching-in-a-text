@@ -1,3 +1,4 @@
+import tracking_usage as tu 
 class FMIndex:
     def __init__(self, text):
         self.text = text + '$'  
@@ -86,14 +87,24 @@ class FMIndex:
         
         return sorted([self.sa[i] for i in range(start, end)])
 
-# Exemple d'utilisation
-# text = "younessenyou"
-# fm = FMIndex(text)
+if __name__ == "__main__":
+    text = "bananana" * 10
+    pattern = "nan"
 
-# # Test de recherche
-# pattern = "you"
-# count = fm.count(pattern)
-# positions = fm.locate(pattern)
+    fm_index = FMIndex(text)
 
-# print(f"Le motif '{pattern}' apparaît {count} fois dans le {text}.")
-# print(f"Positions : {positions}")
+
+    construction_memory = tu.track_memory(lambda: FMIndex(text))
+
+    
+    indices = fm_index.locate(pattern)
+    
+    search_memory = tu.track_memory(lambda: fm_index.locate(pattern))
+
+
+    total_memory = construction_memory + search_memory
+
+    print(f"Indices where the pattern '{pattern}' appears in '{text}': {indices}")
+    print(f"FM-index construction memory usage: {construction_memory:.10f} KB")
+    print(f"Pattern search memory usage: {search_memory:.1f} KB")
+    print(f"Total memory usage: {total_memory:.10f} KB")

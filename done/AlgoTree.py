@@ -1,3 +1,4 @@
+import tracking_usage as tu
 class Node:
     def __init__(self, leaf=False):
         self.children = {}
@@ -155,147 +156,19 @@ class SuffixTree:
         _collect_positions(node, positions)
         return sorted(positions)
 
-# text = "jejeje"
-# suffix_tree = SuffixTree(text)
 
-# pattern = "je"
-# exists = suffix_tree.find_substring(pattern)
-# positions = suffix_tree.find_all_occurrences(pattern)
+if __name__ == "__main__":
+    text = "bananana" * 10
+    pattern = "nan"
 
-# print(f"Le motif '{pattern}' existe dans le texte: {exists}")
-# print(f"Positions: {positions}")
+    suffix_tree = SuffixTree(text)
 
-# class Node:
-#     def __init__(self, leaf=False):
-#         self.children = {}  # {char: (node, start, end)}
-#         self.suffix_link = None
-#         self.start = None
-#         self.end = None
-#         self.leaf = leaf
-#         self.suffix_index = None
+    memory1 = tu.track_memory(lambda: SuffixTree(text))
+    memory2 = tu.track_memory(lambda: suffix_tree.find_all_occurrences(pattern))
+    indices = suffix_tree.find_all_occurrences(pattern)
+    total_memory = memory1 + memory2
 
-# class SuffixTree:
-#     def __init__(self, text):
-#         self.text = text + "$"
-#         self.root = Node()
-#         self.active_node = self.root
-#         self.active_edge = None
-#         self.active_length = 0
-#         self.remainder = 0
-#         self.current_end = [-1] 
-#         self.build_suffix_tree()
-
-#     def build_suffix_tree(self):
-#         for i in range(len(self.text)):
-#             self.current_end[0] += 1
-#             self.remainder += 1
-#             last_created_node = None
-
-#             while self.remainder > 0:
-#                 if self.active_length == 0:
-#                     self.active_edge = i
-
-#                 if (self.active_edge < len(self.text) and 
-#                     self.text[self.active_edge] in self.active_node.children):
-                    
-#                     child_node, start, end = self.active_node.children[self.text[self.active_edge]]
-#                     length = min(end[0] if isinstance(end, list) else end, self.current_end[0] + 1) - start
-
-#                     if self.active_length >= length:
-#                         self.active_node = child_node
-#                         self.active_length -= length
-#                         self.active_edge += length
-#                         continue
-
-#                     if self.text[start + self.active_length] == self.text[i]:
-#                         self.active_length += 1
-#                         if last_created_node is not None:
-#                             last_created_node.suffix_link = self.active_node
-#                         break
-
-#                     split_node = Node()
-#                     self.active_node.children[self.text[self.active_edge]] = (
-#                         split_node,
-#                         start,
-#                         start + self.active_length
-#                     )
-                    
-#                     leaf_node = Node(leaf=True)
-#                     leaf_node.suffix_index = i - self.remainder + 1
-#                     split_node.children[self.text[i]] = (
-#                         leaf_node,
-#                         i,
-#                         self.current_end
-#                     )
-                    
-#                     split_node.children[self.text[start + self.active_length]] = (
-#                         child_node,
-#                         start + self.active_length,
-#                         end
-#                     )
-
-#                     if last_created_node is not None:
-#                         last_created_node.suffix_link = split_node
-#                     last_created_node = split_node
-
-#                 else:
-#                     leaf_node = Node(leaf=True)
-#                     leaf_node.suffix_index = i - self.remainder + 1
-#                     self.active_node.children[self.text[self.active_edge]] = (
-#                         leaf_node,
-#                         i,
-#                         self.current_end
-#                     )
-
-#                     if last_created_node is not None:
-#                         last_created_node.suffix_link = self.active_node
-#                     last_created_node = self.active_node
-
-#                 self.remainder -= 1
-                
-#                 if self.active_node == self.root and self.active_length > 0:
-#                     self.active_length -= 1
-#                     self.active_edge = i - self.remainder + 1
-#                 elif self.active_node != self.root:
-#                     self.active_node = self.active_node.suffix_link or self.root
-
-#     def get_edge_string(self, start, end):
-#         """Récupère la chaîne de caractères sur une arête"""
-#         end_val = end[0] if isinstance(end, list) else end
-#         return self.text[start:min(end_val + 1, len(self.text))]
-
-#     def print_tree(self, node=None, prefix="", is_last=True, depth=0):
-#         """Affiche l'arbre des suffixes avec une structure visuelle"""
-#         if node is None:
-#             node = self.root
-#             print("Arbre des suffixes pour le texte:", self.text)
-#             print("Root")
-            
-#         # Trier les enfants par caractère pour un affichage cohérent
-#         children = sorted(node.children.items())
-        
-#         for i, (char, (child, start, end)) in enumerate(children):
-#             is_last_child = i == len(children) - 1
-            
-#             # Créer le préfixe pour les lignes actuelles
-#             current_prefix = prefix + ("└── " if is_last_child else "├── ")
-            
-#             # Obtenir la chaîne de l'arête
-#             edge_string = self.get_edge_string(start, end)
-            
-#             # Afficher l'arête avec son contenu
-#             suffix_info = f" [suffixe: {child.suffix_index}]" if child.leaf else ""
-#             print(f"{current_prefix}{edge_string}{suffix_info}")
-            
-#             # Préfixe pour les enfants
-#             new_prefix = prefix + ("    " if is_last_child else "│   ")
-            
-#             # Récursion pour les enfants
-#             self.print_tree(child, new_prefix, is_last_child, depth + 1)
-
-# # Test avec le texte "banana"
-# text = "banana"
-# suffix_tree = SuffixTree(text)
-
-# # Afficher l'arbre
-# suffix_tree.print_tree()
+    print(f"Indices où le motif {pattern} apparaît dans {text} : {indices}")
+    print(f"Suffix tree construction memory: {memory1:.2f} KB")
+    print(f"Pattern search memory: {memory2:.2f} KB")
+    print(f"Total memory: {total_memory:.2f} KB")
