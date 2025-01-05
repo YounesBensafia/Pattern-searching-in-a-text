@@ -61,7 +61,7 @@ print(f"Memory used for FM Index search: {memory} KB")
 length = len(text)
 
 
-with open('csv/results.csv', mode='a') as file:
+with open('csv/results.csv', mode='w+') as file:
     file.write(f"length,time_suffix_array,time_suffix_tree,time_fm,memory_suffix_array,memory_suffix_tree,memory_fm\n")
     file.write(f"{length},{time_suffix_array},{total_time},{time},{memory_suffix_array},{total_memory},{memory}\n")
 
