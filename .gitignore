@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/Suffix-Trees/
+/__pycache__/
+/done1/
