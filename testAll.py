@@ -3,7 +3,7 @@ import string
 from done.AlgoTree import SuffixTree
 from done.FmIndex import FMIndex
 from done.suffix_array import search_pattern_with_suffix_array
-from tracking_usage import track_time, track_memory
+from done.tracking_usage import track_time, track_memory
 import csv
 
 

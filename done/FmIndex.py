@@ -87,13 +87,13 @@ class FMIndex:
         return sorted([self.sa[i] for i in range(start, end)])
 
 # Exemple d'utilisation
-# text = "banana"
+# text = "younessenyou"
 # fm = FMIndex(text)
 
 # # Test de recherche
-# pattern = "ana"
+# pattern = "you"
 # count = fm.count(pattern)
 # positions = fm.locate(pattern)
 
-# print(f"Le motif '{pattern}' apparaît {count} fois dans le texte.")
+# print(f"Le motif '{pattern}' apparaît {count} fois dans le {text}.")
 # print(f"Positions : {positions}")

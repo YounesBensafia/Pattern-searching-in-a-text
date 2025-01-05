@@ -19,13 +19,13 @@ def search_pattern_with_suffix_array(text, pattern):
             result.append(i)
     return result
 
-# text = "bananajddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddna"
+# text = "bananana"
 # pattern = "nan"
 
 # # HENA F SEARCH THSB CHHAL TWL TANI
 # indices = search_pattern_with_suffix_array(text, pattern)
 
-# print(f"Indices où le motif apparaît : {indices}")
+# print(f"Indices où le motif {pattern} apparaît dans {text} : {indices}")
 
-# TSMA A LA FIN YKON FICHIER HKA {TEXT, PATTERN, TIME_SORT, TIME_CONS, TIME_SEARCH}
+# # TSMA A LA FIN YKON FICHIER HKA {TEXT, PATTERN, TIME_SORT, TIME_CONS, TIME_SEARCH}
 
