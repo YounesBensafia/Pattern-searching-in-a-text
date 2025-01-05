@@ -10,16 +10,14 @@ def suffix_array_construction(text):
     return suffix_array
 
 def search_pattern_with_suffix_array(text, pattern):
-    
-    # HENA F CONSTRUCTION THSB CHHAL TWL TANI 
     suffix_array = suffix_array_construction(text)
-    
-    m = len(pattern)
-    indices = list()
-    for index in suffix_array:
-        if text[index:index + m] == pattern:
-            indices.append(index)
-    return indices
+    n = len(text)
+    # Search for the pattern in the suffix array
+    result = []
+    for i in suffix_array:
+        if text[i:i+len(pattern)] == pattern:
+            result.append(i)
+    return result
 
 # text = "bananajddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddna"
 # pattern = "nan"
